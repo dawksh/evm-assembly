@@ -20,4 +20,8 @@ contract AssemblyTest is Test {
     function testAirdrop() public {
         ass.airdropETH{value: 0.6 ether}(adds, amounts);
     }
+
+    function testNativeAirdrop() public {
+        ass.airdropETHNative{value: 0.6 ether}(adds, amounts);
+    }
 }

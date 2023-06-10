@@ -43,4 +43,23 @@ contract Assembly {
             }
         }
     }
+
+    function airdropETHNative(
+        address[] calldata recipients,
+        uint256[] calldata amount
+    ) external payable {
+        uint256 len = amount.length;
+        uint256 used = 0;
+        for (uint256 i = 0; i < len; ) {
+            uint256 amt = amount[i];
+            (bool s, ) = address(recipients[i]).call{value: amt}("");
+            if (!s) revert();
+            used += amt;
+
+            unchecked {
+                i++;
+            }
+        }
+        if (used != msg.value) revert();
+    }
 }
